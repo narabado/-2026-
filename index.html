@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 奈良バドミントン新年団体戦 オンラインエントリー</title>
+  <style>
+    /* =================================
+       グローバル・ベース
+       ================================= */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Yu Gothic', 'Hiragino Sans', sans-serif;
+      background: linear-gradient(135deg, #fffbe0, #ffedac);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #d35400;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+    }
+
+    /* =================================
+       タブ切り替えスタイル
+       ================================= */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .tab-button {
+      padding: 12px 24px;
+      background-color: #fff;
+      border: 2px solid #d35400;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #d35400;
+      transition: all 0.3s;
+    }
+
+    .tab-button:hover {
+      background-color: #ffe5cc;
+    }
+
+    .tab-button.active {
+      background-color: #d35400;
+      color: #fff;
+    }
+
+    /* =================================
+       タブコンテンツ共通
+       ================================= */
+    .tab-content {
+      display: none;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .section h2 {
+      font-size: 1.3rem;
+      color: #c0392b;
+      border-bottom: 2px solid #d35400;
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+
+    /* =================================
+       フォーム要素
+       ================================= */
+    label {
+      display: inline-block;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #bbb;
+      border-radius: 6px;
+      background-color: #fafafa;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #d35400;
+      background-color: #fff;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .form-col {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    /* =================================
+       選手カード
+       ================================= */
+    .player-card {
+      border: 2px solid #d35400;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 16px;
+      background-color: #fffaeb;
+    }
+
+    .player-card h3 {
+      font-size: 1.1rem;
+      color: #c0392b;
+      margin-bottom: 12px;
+    }
+
+    /* =================================
+       ボタン
+       ================================= */
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 16px;
+    }
+
+    .btn-primary {
+      background-color: #d35400;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background-color: #a04200;
+    }
+
+    .btn-secondary {
+      background-color: #3498db;
+      color: #fff;
+    }
+
+    .btn-secondary:hover {
+      background-color: #2c81ba;
+    }
+
+    .btn-danger {
+      background-color: #e74c3c;
+      color: #fff;
+      padding: 8px 16px;
+      font-size: 0.9rem;
+    }
+
+    .btn-danger:hover {
+      background-color: #c0392b;
+    }
+
+    .btn-warning {
+      background-color: #f39c12;
+      color: #fff;
+      padding: 8px 16px;
+      font-size: 0.9rem;
+    }
+
+    .btn-warning:hover {
+      background-color: #d68910;
+    }
+
+    /* =================================
+       登録状況タブ
+       ================================= */
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .stat-box {
+      background-color: #fffaeb;
+      border: 2px solid #d35400;
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .stat-box h3 {
+      font-size: 1rem;
+      color: #c0392b;
+      margin-bottom: 8px;
+    }
+
+    .stat-box p {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #d35400;
+    }
+
+    /* =================================
+       管理タブ
+       ================================= */
+    #adminLoginArea {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    #adminContent {
+      display: none;
+    }
+
+    #adminTable {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      overflow-x: auto;
+      display: block;
+    }
+
+    #adminTable th,
+    #adminTable td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    #adminTable th {
+      background-color: #d35400;
+      color: #fff;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+    }
+
+    #adminTable tr:nth-child(even) {
+      background-color: #fffaeb;
+    }
+
+    #adminTable tr:hover {
+      background-color: #ffe5cc;
+    }
+
+    .deleted-row {
+      background-color: #ffcccc !important;
+      opacity: 0.7;
+    }
+
+    /* =================================
+       メッセージ・エラー表示
+       ================================= */
+    .message {
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 16px;
+      font-weight: 600;
+    }
+
+    .message.success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .message.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    /* =================================
+       レスポンシブ調整
+       ================================= */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .tab-button {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+      }
+
+      .tab-content {
+        padding: 20px;
+      }
+
+      .form-row {
+        flex-direction: column;
+      }
+
+      .stat-box p {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🏸 2026 奈良バドミントン新年団体戦 オンラインエントリー</h1>
+
+  <!-- タブ切り替えボタン -->
+  <div class="tabs">
+    <button class="tab-button active" onclick="switchTab('registration')">チーム登録</button>
+    <button class="tab-button" onclick="switchTab('status')">登録状況</button>
+    <button class="tab-button" onclick="switchTab('admin')">管理</button>
+  </div>
+
+  <!-- ========================================
+       タブ1: チーム登録
+       ======================================== -->
+  <div id="registration" class="tab-content active">
+    <form id="entryForm">
+      
+      <!-- 申込者情報 -->
+      <div class="section">
+        <h2>申込者情報</h2>
+        <div class="form-row">
+          <div class="form-col">
+            <label>氏名 <span style="color:red;">*</span></label>
+            <input type="text" id="applicant_name" name="applicant_name" required>
+          </div>
+          <div class="form-col">
+            <label>フリガナ <span style="color:red;">*</span></label>
+            <input type="text" id="applicant_kana" name="applicant_kana" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <label>メールアドレス <span style="color:red;">*</span></label>
+            <input type="email" id="applicant_email" name="applicant_email" required>
+          </div>
+          <div class="form-col">
+            <label>電話番号 <span style="color:red;">*</span></label>
+            <input type="tel" id="applicant_phone" name="applicant_phone" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- チーム情報 -->
+      <div class="section">
+        <h2>チーム情報</h2>
+        <div class="form-row">
+          <div class="form-col">
+            <label>チーム名 <span style="color:red;">*</span></label>
+            <input type="text" id="team_name" name="team_name" required>
+          </div>
+          <div class="form-col">
+            <label>チームランク <span style="color:red;">*</span></label>
+            <select id="team_rank" name="team_rank" required onchange="updateRankOptions()">
+              <option value="">選択してください</option>
+              <option value="A">Aクラス</option>
+              <option value="B">Bクラス</option>
+              <option value="C">Cクラス</option>
+              <option value="D">Dクラス</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 選手情報 -->
+      <div class="section">
+        <h2>選手情報（4名以上必須、最大6名）</h2>
+        
+        <!-- 選手1〜6のカード -->
+        <div id="playersContainer">
+          <!-- JavaScriptで動的生成 -->
+        </div>
+
+        <p style="color:#555; margin-top:12px; font-size:0.9rem;">
+          ※ Aクラスは女性2名以上 または Bランク以上の男性2名以上 が必須です<br>
+          ※ 4名以上の選手登録が必要です
+        </p>
+      </div>
+
+      <!-- 送信ボタン -->
+      <button type="submit" class="btn btn-primary">登録する</button>
+      
+      <!-- メッセージ表示エリア -->
+      <div id="formMessage"></div>
+    </form>
+  </div>
+
+  <!-- ========================================
+       タブ2: 登録状況
+       ======================================== -->
+  <div id="status" class="tab-content">
+    <h2>現在の登録状況</h2>
+    
+    <!-- 統計表示 -->
+    <div class="stats-container" id="statsContainer">
+      <!-- JavaScriptで動的生成 -->
+    </div>
+
+    <button class="btn btn-secondary" onclick="loadEntries()">最新情報に更新</button>
+  </div>
+
+  <!-- ========================================
+       タブ3: 管理
+       ======================================== -->
+  <div id="admin" class="tab-content">
+    
+    <!-- ログインエリア -->
+    <div id="adminLoginArea">
+      <h2>管理者ログイン</h2>
+      <div style="max-width:400px; margin:20px auto;">
+        <label>パスワード</label>
+        <input type="password" id="adminPassword" style="width:100%; margin-bottom:12px;">
+        <button class="btn btn-secondary" onclick="adminLogin()">ログイン</button>
+      </div>
+    </div>
+
+    <!-- ログイン後のコンテンツ -->
+    <div id="adminContent">
+      <h2>全登録データ（削除済み含む）</h2>
+      <button class="btn btn-secondary" onclick="adminLoadAll()">データ再読込</button>
+      
+      <div style="overflow-x:auto; margin-top:20px;">
+        <table id="adminTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>チーム名</th>
+              <th>申込者</th>
+              <th>メール</th>
+              <th>電話</th>
+              <th>ランク</th>
+              <th>選手数</th>
+              <th>削除</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="adminTableBody">
+            <!-- JavaScriptで動的生成 -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================
+       JavaScript
+       ======================================== -->
+  <script>
+    // ===========================================
+    // 定数設定
+    // ===========================================
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOX2L0_yWX9OLsYkO4jSG7SAiIwUMYRVMsR_JhSxkRYCrwLcUEXp3mmS2g6c0xbqmV/exec';
+    const ADMIN_PASSWORD = 'narabado2026';
+
+    // ===========================================
+    // タブ切り替え
+    // ===========================================
+    function switchTab(tabName) {
+      // 全タブ非アクティブ化
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      // 指定タブをアクティブ化
+      document.getElementById(tabName).classList.add('active');
+      event.target.classList.add('active');
+
+      // 登録状況タブを開いたら自動更新
+      if (tabName === 'status') {
+        loadEntries();
+      }
+    }
+
+    // ===========================================
+    // 選手カード動的生成（6名分）
+    // ===========================================
+    function initPlayerCards() {
+      const container = document.getElementById('playersContainer');
+      container.innerHTML = '';
+
+      for (let i = 1; i <= 6; i++) {
+        const card = document.createElement('div');
+        card.className = 'player-card';
+        card.innerHTML = `
+          <h3>選手${i}${i <= 4 ? ' <span style="color:red;">*必須</span>' : ''}</h3>
+          <div class="form-row">
+            <div class="form-col">
+              <label>氏名</label>
+              <input type="text" id="player${i}_name" name="player${i}_name" ${i <= 4 ? 'required' : ''}>
+            </div>
+            <div class="form-col">
+              <label>フリガナ</label>
+              <input type="text" id="player${i}_kana" name="player${i}_kana" ${i <= 4 ? 'required' : ''}>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-col">
+              <label>学年</label>
+              <select id="player${i}_grade" name="player${i}_grade" ${i <= 4 ? 'required' : ''}>
+                <option value="">選択</option>
+                <option value="小1">小1</option>
+                <option value="小2">小2</option>
+                <option value="小3">小3</option>
+                <option value="小4">小4</option>
+                <option value="小5">小5</option>
+                <option value="小6">小6</option>
+                <option value="中1">中1</option>
+                <option value="中2">中2</option>
+                <option value="中3">中3</option>
+                <option value="高1">高1</option>
+                <option value="高2">高2</option>
+                <option value="高3">高3</option>
+                <option value="大学生">大学生</option>
+                <option value="社会人">社会人</option>
+              </select>
+            </div>
+            <div class="form-col">
+              <label>性別</label>
+              <select id="player${i}_gender" name="player${i}_gender" ${i <= 4 ? 'required' : ''} onchange="updateRankOptions()">
+                <option value="">選択</option>
+                <option value="男性">男性</option>
+                <option value="女性">女性</option>
+              </select>
+            </div>
+            <div class="form-col">
+              <label>ランク</label>
+              <select id="player${i}_rank" name="player${i}_rank" ${i <= 4 ? 'required' : ''}>
+                <option value="">選択</option>
+              </select>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      }
+    }
+
+    // ===========================================
+    // ランク選択肢の更新（性別とチームランクに応じて）
+    // ===========================================
+    function updateRankOptions() {
+      const teamRank = document.getElementById('team_rank').value;
+
+      for (let i = 1; i <= 6; i++) {
+        const genderSelect = document.getElementById(`player${i}_gender`);
+        const rankSelect = document.getElementById(`player${i}_rank`);
+        
+        if (!genderSelect || !rankSelect) continue;
+
+        const gender = genderSelect.value;
+        rankSelect.innerHTML = '<option value="">選択</option>';
+
+        if (!gender || !teamRank) continue;
+
+        let ranks = [];
+        if (gender === '男性') {
+          if (teamRank === 'A') ranks = ['A', 'B', 'C'];
+          else if (teamRank === 'B') ranks = ['B', 'C', 'D'];
+          else if (teamRank === 'C') ranks = ['C', 'D'];
+          else if (teamRank === 'D') ranks = ['D'];
+        } else if (gender === '女性') {
+          if (teamRank === 'A') ranks = ['A', 'B', 'C', 'D'];
+          else if (teamRank === 'B') ranks = ['B', 'C', 'D'];
+          else if (teamRank === 'C') ranks = ['C', 'D'];
+          else if (teamRank === 'D') ranks = ['D'];
+        }
+
+        ranks.forEach(rank => {
+          const option = document.createElement('option');
+          option.value = rank;
+          option.textContent = rank;
+          rankSelect.appendChild(option);
+        });
+      }
+    }
+
+    // ===========================================
+    // フォーム送信処理
+    // ===========================================
+    document.getElementById('entryForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+      const data = { action: 'add' };
+
+      // フォームデータを取得
+      formData.forEach((value, key) => {
+        data[key] = value || '';
+      });
+
+      // 選手数カウント
+      let playerCount = 0;
+      for (let i = 1; i <= 6; i++) {
+        if (data[`player${i}_name`]) playerCount++;
+      }
+
+      // バリデーション
+      if (playerCount < 4) {
+        showMessage('formMessage', '選手は4名以上登録してください', 'error');
+        return;
+      }
+
+      // Aクラスの追加チェック
+      if (data.team_rank === 'A') {
+        let femaleCount = 0;
+        let maleBRankCount = 0;
+
+        for (let i = 1; i <= 6; i++) {
+          const gender = data[`player${i}_gender`];
+          const rank = data[`player${i}_rank`];
+          
+          if (gender === '女性' && rank) femaleCount++;
+          if (gender === '男性' && ['A', 'B'].includes(rank)) maleBRankCount++;
+        }
+
+        if (femaleCount < 2 && maleBRankCount < 2) {
+          showMessage('formMessage', 'Aクラスは女性2名以上、またはBランク以上の男性2名以上が必要です', 'error');
+          return;
+        }
+      }
+
+      // GASへ送信（FIXED: headersを削除してCORSエラー回避）
+      try {
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          showMessage('formMessage', '登録が完了しました！', 'success');
+          this.reset();
+          initPlayerCards();
+        } else {
+          showMessage('formMessage', '登録に失敗しました: ' + (result.error || '不明なエラー'), 'error');
+        }
+      } catch (error) {
+        showMessage('formMessage', 'エラーが発生しました: ' + error.message, 'error');
+        console.error('送信エラー:', error);
+      }
+    });
+
+    // ===========================================
+    // 登録状況の読込
+    // ===========================================
+    async function loadEntries() {
+      try {
+        // FIXED: headersを削除
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify({ action: 'get', limit: 1000, offset: 0 })
+        });
+
+        const result = await response.json();
+
+        if (!result.items) {
+          showStats({ teams: 0, players: 0, male: 0, female: 0, ranks: {} });
+          return;
+        }
+
+        // 統計計算
+        const stats = {
+          teams: result.items.length,
+          players: 0,
+          male: 0,
+          female: 0,
+          ranks: { A: 0, B: 0, C: 0, D: 0 }
+        };
+
+        result.items.forEach(item => {
+          for (let i = 1; i <= 6; i++) {
+            const name = item[`player${i}_name`];
+            const gender = item[`player${i}_gender`];
+            const rank = item[`player${i}_rank`];
+
+            if (name) {
+              stats.players++;
+              if (gender === '男性') stats.male++;
+              if (gender === '女性') stats.female++;
+              if (rank && stats.ranks[rank] !== undefined) {
+                stats.ranks[rank]++;
+              }
+            }
+          }
+        });
+
+        showStats(stats);
+      } catch (error) {
+        console.error('データ取得エラー:', error);
+        showStats({ teams: 0, players: 0, male: 0, female: 0, ranks: {} });
+      }
+    }
+
+    // ===========================================
+    // 統計表示
+    // ===========================================
+    function showStats(stats) {
+      const container = document.getElementById('statsContainer');
+      container.innerHTML = `
+        <div class="stat-box">
+          <h3>登録チーム数</h3>
+          <p>${stats.teams}</p>
+        </div>
+        <div class="stat-box">
+          <h3>総選手数</h3>
+          <p>${stats.players}</p>
+        </div>
+        <div class="stat-box">
+          <h3>男性</h3>
+          <p>${stats.male}</p>
+        </div>
+        <div class="stat-box">
+          <h3>女性</h3>
+          <p>${stats.female}</p>
+        </div>
+        <div class="stat-box">
+          <h3>Aランク</h3>
+          <p>${stats.ranks.A || 0}</p>
+        </div>
+        <div class="stat-box">
+          <h3>Bランク</h3>
+          <p>${stats.ranks.B || 0}</p>
+        </div>
+        <div class="stat-box">
+          <h3>Cランク</h3>
+          <p>${stats.ranks.C || 0}</p>
+        </div>
+        <div class="stat-box">
+          <h3>Dランク</h3>
+          <p>${stats.ranks.D || 0}</p>
+        </div>
+      `;
+    }
+
+    // ===========================================
+    // 管理者ログイン
+    // ===========================================
+    function adminLogin() {
+      const password = document.getElementById('adminPassword').value;
+      if (password === ADMIN_PASSWORD) {
+        document.getElementById('adminLoginArea').style.display = 'none';
+        document.getElementById('adminContent').style.display = 'block';
+        adminLoadAll();
+      } else {
+        alert('パスワードが正しくありません');
+      }
+    }
+
+    // ===========================================
+    // 管理者用：全データ読込
+    // ===========================================
+    async function adminLoadAll() {
+      try {
+        // FIXED: headersを削除
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify({ action: 'getAll' })
+        });
+
+        const result = await response.json();
+
+        if (!result.items) {
+          document.getElementById('adminTableBody').innerHTML = '<tr><td colspan="9">データがありません</td></tr>';
+          return;
+        }
+
+        const tbody = document.getElementById('adminTableBody');
+        tbody.innerHTML = '';
+
+        result.items.forEach(item => {
+          const isDeleted = item.delete_flag === '1' || item.delete_flag === 1;
+          
+          // 選手数カウント
+          let playerCount = 0;
+          for (let i = 1; i <= 6; i++) {
+            if (item[`player${i}_name`]) playerCount++;
+          }
+
+          const row = document.createElement('tr');
+          if (isDeleted) row.classList.add('deleted-row');
+
+          row.innerHTML = `
+            <td>${item.id || '-'}</td>
+            <td>${item.team_name || '-'}</td>
+            <td>${item.applicant_name || '-'}</td>
+            <td>${item.applicant_email || '-'}</td>
+            <td>${item.applicant_phone || '-'}</td>
+            <td>${item.team_rank || '-'}</td>
+            <td>${playerCount}</td>
+            <td>${isDeleted ? '削除済み' : '有効'}</td>
+            <td>
+              ${!isDeleted ? `
+                <button class="btn-danger" onclick="deleteEntry('${item.id}')">削除</button>
+              ` : `
+                <button class="btn-warning" onclick="restoreEntry('${item.id}')">復元</button>
+                <button class="btn-danger" onclick="permanentDelete('${item.id}')">完全削除</button>
+              `}
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+      } catch (error) {
+        console.error('管理データ取得エラー:', error);
+        alert('データの取得に失敗しました');
+      }
+    }
+
+    // ===========================================
+    // 削除・復元・完全削除
+    // ===========================================
+    async function deleteEntry(id) {
+      if (!confirm(`ID: ${id} を削除しますか？（復元可能）`)) return;
+
+      try {
+        // FIXED: headersを削除
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify({ action: 'delete', id: id })
+        });
+
+        const result = await response.json();
+        if (result.success) {
+          alert('削除しました');
+          adminLoadAll();
+        } else {
+          alert('削除に失敗: ' + (result.error || '不明'));
+        }
+      } catch (error) {
+        alert('エラー: ' + error.message);
+      }
+    }
+
+    async function restoreEntry(id) {
+      if (!confirm(`ID: ${id} を復元しますか?`)) return;
+
+      try {
+        // FIXED: headersを削除
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify({ action: 'restore', id: id })
+        });
+
+        const result = await response.json();
+        if (result.success) {
+          alert('復元しました');
+          adminLoadAll();
+        } else {
+          alert('復元に失敗: ' + (result.error || '不明'));
+        }
+      } catch (error) {
+        alert('エラー: ' + error.message);
+      }
+    }
+
+    async function permanentDelete(id) {
+      if (!confirm(`ID: ${id} を完全削除しますか？この操作は取り消せません！`)) return;
+
+      try {
+        // FIXED: headersを削除
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify({ action: 'permanentDelete', id: id })
+        });
+
+        const result = await response.json();
+        if (result.success) {
+          alert('完全削除しました');
+          adminLoadAll();
+        } else {
+          alert('完全削除に失敗: ' + (result.error || '不明'));
+        }
+      } catch (error) {
+        alert('エラー: ' + error.message);
+      }
+    }
+
+    // ===========================================
+    // メッセージ表示ヘルパー
+    // ===========================================
+    function showMessage(elementId, message, type) {
+      const msgDiv = document.getElementById(elementId);
+      msgDiv.className = `message ${type}`;
+      msgDiv.textContent = message;
+      msgDiv.style.display = 'block';
+
+      setTimeout(() => {
+        msgDiv.style.display = 'none';
+      }, 5000);
+    }
+
+    // ===========================================
+    // 初期化
+    // ===========================================
+    window.addEventListener('DOMContentLoaded', function() {
+      initPlayerCards();
+      updateRankOptions();
+    });
+  </script>
+
+</body>
+</html>
