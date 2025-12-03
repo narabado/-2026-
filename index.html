@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">2026 奈良バドミントン新年団体戦 オンラインエントリー</title>
+  <style>
+    /* =================================
+       グローバル・ベース
+       ================================= */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Yu Gothic', 'Hiragino Sans', sans-serif;
+      background: linear-gradient(135deg, #1a0b2e 0%, #16213e 50%, #0f3460 100%), 
+                  url('https://www.genspark.ai/api/files/s/VQLHXmYf?cache_control=3600');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-blend-mode: overlay;
+      min-height: 100vh;
+      padding: 20px;
+      position: relative;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 50%, rgba(138, 43, 226, 0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 80%, rgba(0, 191, 255, 0.15) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    body::after {
+      content: '🎊✨🎆🌸🎋💫🎊✨🎆🌸🎋💫🎊✨🎆🌸🎋💫';
+      position: fixed;
+      top: -50px;
+      left: 0;
+      width: 200%;
+      font-size: 2rem;
+      opacity: 0.3;
+      animation: scroll-emoji 20s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+      letter-spacing: 80px;
+    }
+    
+    @keyframes scroll-emoji {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-50%);
+      }
+    }
+    
+    body > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      text-align: center;
+      color: #00d4ff;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      text-shadow: 0 0 10px rgba(0, 212, 255, 0.8),
+                   0 0 20px rgba(0, 212, 255, 0.6),
+                   0 0 30px rgba(0, 212, 255, 0.4),
+                   2px 2px 4px rgba(0,0,0,0.5);
+      font-weight: bold;
+      letter-spacing: 1px;
+      position: relative;
+    }
+    
+    h1::before {
+      content: '🎍';
+      position: absolute;
+      left: 10%;
+      font-size: 1.5rem;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    
+    h1::after {
+      content: '🎍';
+      position: absolute;
+      right: 10%;
+      font-size: 1.5rem;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    
+    @keyframes glow {
+      from {
+        filter: drop-shadow(0 0 5px #FFD700) drop-shadow(0 0 10px #FFD700);
+      }
+      to {
+        filter: drop-shadow(0 0 10px #FFD700) drop-shadow(0 0 20px #FFD700) drop-shadow(0 0 30px #FFA500);
+      }
+    }
+
+    /* =================================
+       タブ切り替えスタイル
+       ================================= */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .tab-button {
+      padding: 12px 24px;
+      background: rgba(0, 212, 255, 0.1);
+      border: 2px solid #00d4ff;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #00d4ff;
+      transition: all 0.3s;
+      box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .tab-button::before {
+      content: '✨';
+      position: absolute;
+      top: 50%;
+      left: -20px;
+      transform: translateY(-50%);
+      opacity: 0;
+      transition: all 0.3s;
+    }
+    
+    .tab-button:hover::before {
+      left: 10px;
+      opacity: 1;
+    }
+
+    .tab-button:hover {
+      background: rgba(0, 212, 255, 0.2);
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .tab-button.active {
+      background: linear-gradient(135deg, #00d4ff 0%, #7b2ff7 100%);
+      color: #fff;
+      box-shadow: 0 0 30px rgba(0, 212, 255, 0.8),
+                  0 0 60px rgba(123, 47, 247, 0.6);
+    }
+
+    /* =================================
+       タブコンテンツ共通
+       ================================= */
+    .tab-content {
+      display: none;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 212, 255, 0.3),
+                  0 0 0 1px rgba(0, 212, 255, 0.2);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .section h2 {
+      font-size: 1.3rem;
+      color: #0f3460;
+      border-bottom: 2px solid #00d4ff;
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+      text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+    }
+
+    /* =================================
+       フォーム要素
+       ================================= */
+    label {
+      display: inline-block;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #bbb;
+      border-radius: 6px;
+      background-color: #fafafa;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #00d4ff;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+    }
+
+    .form-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .form-col {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    /* =================================
+       選手カード
+       ================================= */
+    .player-card {
+      border: 2px solid rgba(0, 212, 255, 0.3);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.08) 0%, rgba(0, 212, 255, 0.05) 50%, rgba(123, 47, 247, 0.05) 100%);
+      box-shadow: 0 0 15px rgba(0, 212, 255, 0.1), 0 0 5px rgba(255, 215, 0, 0.1);
+      position: relative;
+    }
+    
+    .player-card::after {
+      content: '🏸';
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.5rem;
+      opacity: 0.15;
+    }
+
+    .player-card h3 {
+      font-size: 1.1rem;
+      color: #0f3460;
+      margin-bottom: 12px;
+      font-weight: bold;
+    }
+
+    /* =================================
+       ボタン
+       ================================= */
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 16px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #FFD700 0%, #00d4ff 50%, #7b2ff7 100%);
+      color: #fff;
+      font-size: 1.5rem;
+      padding: 20px 60px;
+      margin-top: 24px;
+      min-width: 300px;
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.4),
+                  0 0 40px rgba(0, 212, 255, 0.6),
+                  0 10px 50px rgba(123, 47, 247, 0.4);
+      border: 2px solid rgba(255, 215, 0, 0.6);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary::before {
+      content: '🎊';
+      position: absolute;
+      left: 20px;
+      font-size: 1.2rem;
+    }
+    
+    .btn-primary::after {
+      content: '🎊';
+      position: absolute;
+      right: 20px;
+      font-size: 1.2rem;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #00e5ff 0%, #8e3bff 100%);
+      transform: scale(1.05);
+      box-shadow: 0 0 40px rgba(0, 212, 255, 0.9),
+                  0 15px 50px rgba(123, 47, 247, 0.6);
+    }
+
+    .btn-primary:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+      transform: scale(1);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, #00d4ff 0%, #00b8d4 100%);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+      border: 1px solid rgba(0, 212, 255, 0.5);
+    }
+
+    .btn-secondary:hover {
+      background: linear-gradient(135deg, #00e5ff 0%, #00c9e6 100%);
+      box-shadow: 0 0 30px rgba(0, 212, 255, 0.7);
+    }
+
+    .btn-danger {
+      background-color: #e74c3c;
+      color: #fff;
+      padding: 8px 16px;
+      font-size: 0.9rem;
+    }
+
+    .btn-danger:hover {
+      background-color: #c0392b;
+    }
+
+    .btn-warning {
+      background-color: #f39c12;
+      color: #fff;
+      padding: 8px 16px;
+      font-size: 0.9rem;
+    }
+
+    .btn-warning:hover {
+      background-color: #d68910;
+    }
+
+    /* =================================
+       登録状況タブ
+       ================================= */
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    
+    @media (max-width: 768px) {
+      .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .stat-box {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(0, 212, 255, 0.1) 50%, rgba(123, 47, 247, 0.1) 100%);
+      border: 2px solid rgba(0, 212, 255, 0.4);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.2), 0 0 10px rgba(255, 215, 0, 0.1);
+      backdrop-filter: blur(5px);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .stat-box::before {
+      content: '✨';
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      font-size: 1.2rem;
+      opacity: 0.3;
+      animation: twinkle 2s ease-in-out infinite;
+    }
+    
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.2); }
+    }
+
+    .stat-box h3 {
+      font-size: 1rem;
+      color: #0f3460;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .stat-box p {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #00d4ff;
+      text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+    }
+
+    /* =================================
+       管理タブ
+       ================================= */
+    #adminLoginArea {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    #adminContent {
+      display: none;
+    }
+
+    #adminTable {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      overflow-x: auto;
+      display: block;
+    }
+
+    #adminTable th,
+    #adminTable td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    #adminTable th {
+      background: linear-gradient(135deg, #00d4ff 0%, #7b2ff7 100%);
+      color: #fff;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    #adminTable tr:nth-child(even) {
+      background: rgba(0, 212, 255, 0.05);
+    }
+
+    #adminTable tr:hover {
+      background: rgba(0, 212, 255, 0.1);
+      box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+    }
+
+    .deleted-row {
+      background-color: #ffcccc !important;
+      opacity: 0.7;
+    }
+
+    /* =================================
+       メッセージ・エラー表示
+       ================================= */
+    .message {
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 16px;
+      font-weight: 600;
+    }
+
+    .message.success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .message.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    /* =================================
+       ローディング表示
+       ================================= */
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      color: #00d4ff;
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+    }
+
+    .loading.active {
+      display: block;
+    }
+
+    /* =================================
+       レスポンシブ調整
+       ================================= */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .tab-button {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+      }
+
+      .tab-content {
+        padding: 20px;
+      }
+
+      .form-row {
+        flex-direction: column;
+      }
+
+      .stat-box p {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="mainTitle" style="cursor: default;">🏸 2026 奈良バドミントン新年団体戦 オンラインエントリー 🎉</h1>
+  
+  <!-- 新年飾りエフェクト -->
+  <div style="text-align: center; margin-bottom: 10px; font-size: 0.9rem; color: #FFD700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.8); font-weight: bold;">
+    ✨ 謹賀新年 ・ Happy New Year 2026 ✨
+  </div>
+
+  <!-- タブ切り替えボタン -->
+  <div class="tabs">
+    <button class="tab-button active" onclick="switchTab('registration')">チーム登録</button>
+    <button class="tab-button" onclick="switchTab('status')">登録状況</button>
+    <button class="tab-button" onclick="switchTab('admin')">管理</button>
+  </div>
+
+  <!-- ========================================
+       タブ1: チーム登録
+       ======================================== -->
+  <div id="registration" class="tab-content active">
+    <form id="entryForm">
+      
+      <!-- 申込者情報 -->
+      <div class="section">
+        <h2>申込者情報</h2>
+        <div class="form-row">
+          <div class="form-col">
+            <label>氏名 <span style="color:red;">*</span></label>
+            <input type="text" id="applicant_name" name="applicant_name" required>
+          </div>
+          <div class="form-col">
+            <label>フリガナ <span style="color:red;">*</span></label>
+            <input type="text" id="applicant_kana" name="applicant_kana" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <label>メールアドレス <span style="color:red;">*</span></label>
+            <input type="email" id="applicant_email" name="applicant_email" required>
+          </div>
+          <div class="form-col">
+            <label>電話番号 <span style="color:red;">*</span></label>
+            <input type="tel" id="applicant_phone" name="applicant_phone" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- チーム情報 -->
+      <div class="section">
+        <h2>チーム情報</h2>
+        <div class="form-row">
+          <div class="form-col">
+            <label>チーム名 <span style="color:red;">*</span></label>
+            <input type="text" id="team_name" name="team_name" required>
+          </div>
+          <div class="form-col">
+            <label>チームランク <span style="color:red;">*</span></label>
+            <select id="team_rank" name="team_rank" required onchange="updateRankOptions()">
+              <option value="">選択してください</option>
+              <option value="A">Aクラス</option>
+              <option value="B">Bクラス</option>
+              <option value="C">Cクラス</option>
+              <option value="D">Dクラス</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 出場条件表示 -->
+      <div class="section" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(0, 212, 255, 0.15) 50%, rgba(123, 47, 247, 0.15) 100%); padding:16px; border-radius:8px; border:2px solid rgba(255, 215, 0, 0.5); margin-bottom:20px; box-shadow: 0 0 20px rgba(255, 215, 0, 0.3), 0 0 40px rgba(0, 212, 255, 0.2);">
+        <h2 style="color:#0f3460; margin-bottom:12px; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);">🎍 チーム編成条件 🎍</h2>
+        <ul style="margin-left:20px; line-height:1.8; color:#333;">
+          <li><strong>Aクラス:</strong> （女子 + Bランク男子）の合計を2名以上含む</li>
+          <li><strong>Bクラス:</strong> （女子 + Cランク男子）の合計を2名以上含む</li>
+          <li><strong>Cクラス:</strong> （女子Bランク以下 + Dランク男子）の合計を2名以上含む</li>
+          <li><strong>Dクラス:</strong> 男女の制限なし</li>
+          <li><strong>選手数:</strong> 4名以上6名以下（必須）</li>
+        </ul>
+      </div>
+
+      <!-- 選手情報 -->
+      <div class="section">
+        <h2>選手情報（4名以上必須、最大6名）</h2>
+        
+        <!-- 選手1〜6のカード -->
+        <div id="playersContainer">
+          <!-- JavaScriptで動的生成 -->
+        </div>
+      </div>
+
+      <!-- 送信ボタン -->
+      <div style="text-align: center;">
+        <button type="submit" class="btn btn-primary" id="submitBtn">登録する</button>
+      </div>
+      
+      <!-- ローディング表示 -->
+      <div id="formLoading" class="loading">送信中...</div>
+      
+      <!-- メッセージ表示エリア -->
+      <div id="formMessage"></div>
+    </form>
+  </div>
+
+  <!-- ========================================
+       タブ2: 登録状況
+       ======================================== -->
+  <div id="status" class="tab-content">
+    <h2>現在の登録状況</h2>
+    
+    <!-- ローディング表示 -->
+    <div id="statusLoading" class="loading">読み込み中...</div>
+    
+    <!-- 統計表示 -->
+    <div class="stats-container" id="statsContainer">
+      <!-- JavaScriptで動的生成 -->
+    </div>
+
+    <!-- 自動更新に変更したためボタン削除 -->
+  </div>
+
+  <!-- ========================================
+       タブ3: 管理
+       ======================================== -->
+  <div id="admin" class="tab-content">
+    
+    <!-- ログインエリア -->
+    <div id="adminLoginArea">
+      <h2>管理者ログイン</h2>
+      <div style="max-width:400px; margin:20px auto;">
+        <label>パスワード</label>
+        <input type="password" id="adminPassword" style="width:100%; margin-bottom:12px;">
+        <button class="btn btn-secondary" onclick="adminLogin()">ログイン</button>
+      </div>
+    </div>
+
+    <!-- ログイン後のコンテンツ -->
+    <div id="adminContent">
+      <h2>全登録データ（削除済み含む）</h2>
+      
+      <!-- ローディング表示 -->
+      <div id="adminLoading" class="loading">読み込み中...</div>
+      
+      <button class="btn btn-secondary" onclick="adminLoadAll()">データ再読込</button>
+      
+      <div style="overflow-x:auto; margin-top:20px;">
+        <table id="adminTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>チーム名</th>
+              <th>申込者</th>
+              <th>メール</th>
+              <th>電話</th>
+              <th>ランク</th>
+              <th>選手数</th>
+              <th>削除</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="adminTableBody">
+            <!-- JavaScriptで動的生成 -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================
+       JavaScript
+       ======================================== -->
+  <script>
+    // ===========================================
+    // 定数設定（新しいGAS URL）
+    // ===========================================
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwwNW892gelpcehk1f82wD28kKeZgN1SQQ_1h2t_EGIl3hvOAqf90jd7J_GACIXkUPz/exec';
+    const ADMIN_PASSWORD = 'narabado2026';
+
+    // ===========================================
+    // タブ切り替え
+    // ===========================================
+    function switchTab(tabName) {
+      // 全タブ非アクティブ化
+      document.querySelectorAll('.tab-content').forEach(function(tab) {
+        tab.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-button').forEach(function(btn) {
+        btn.classList.remove('active');
+      });
+
+      // 指定タブをアクティブ化
+      document.getElementById(tabName).classList.add('active');
+      event.target.classList.add('active');
+
+      // 登録状況タブを開いたら即座に更新
+      if (tabName === 'status') {
+        loadEntries();
+        startAutoUpdate(); // 自動更新を再開
+      } else {
+        stopAutoUpdate(); // 他のタブでは自動更新停止
+      }
+    }
+
+    // ===========================================
+    // 選手カード動的生成（6名分）
+    // ===========================================
+    function initPlayerCards() {
+      var container = document.getElementById('playersContainer');
+      container.innerHTML = '';
+
+      for (var i = 1; i <= 6; i++) {
+        var card = document.createElement('div');
+        card.className = 'player-card';
+        var isRequired = i <= 4;
+        card.innerHTML = 
+          '<h3>選手' + i + (isRequired ? ' <span style="color:red;">*必須</span>' : '') + '</h3>' +
+          '<div class="form-row">' +
+            '<div class="form-col">' +
+              '<label>氏名</label>' +
+              '<input type="text" id="player' + i + '_name" name="player' + i + '_name" ' + (isRequired ? 'required' : '') + '>' +
+            '</div>' +
+            '<div class="form-col">' +
+              '<label>フリガナ</label>' +
+              '<input type="text" id="player' + i + '_kana" name="player' + i + '_kana" ' + (isRequired ? 'required' : '') + '>' +
+            '</div>' +
+          '</div>' +
+          '<div class="form-row">' +
+            '<div class="form-col">' +
+              '<label>学年</label>' +
+              '<select id="player' + i + '_grade" name="player' + i + '_grade" ' + (isRequired ? 'required' : '') + '>' +
+                '<option value="">選択</option>' +
+                '<option value="小1">小1</option>' +
+                '<option value="小2">小2</option>' +
+                '<option value="小3">小3</option>' +
+                '<option value="小4">小4</option>' +
+                '<option value="小5">小5</option>' +
+                '<option value="小6">小6</option>' +
+                '<option value="中1">中1</option>' +
+                '<option value="中2">中2</option>' +
+                '<option value="中3">中3</option>' +
+                '<option value="高1">高1</option>' +
+                '<option value="高2">高2</option>' +
+                '<option value="高3">高3</option>' +
+                '<option value="大学1年">大学1年</option>' +
+                '<option value="大学2年">大学2年</option>' +
+                '<option value="大学3年">大学3年</option>' +
+                '<option value="大学4年">大学4年</option>' +
+                '<option value="20代">20代</option>' +
+                '<option value="30代">30代</option>' +
+                '<option value="40代">40代</option>' +
+                '<option value="50代">50代</option>' +
+                '<option value="60代">60代</option>' +
+              '</select>' +
+            '</div>' +
+            '<div class="form-col">' +
+              '<label>性別</label>' +
+              '<select id="player' + i + '_gender" name="player' + i + '_gender" ' + (isRequired ? 'required' : '') + ' onchange="updateRankOptions()">' +
+                '<option value="">選択</option>' +
+                '<option value="男性">男性</option>' +
+                '<option value="女性">女性</option>' +
+              '</select>' +
+            '</div>' +
+            '<div class="form-col">' +
+              '<label>ランク</label>' +
+              '<select id="player' + i + '_rank" name="player' + i + '_rank" ' + (isRequired ? 'required' : '') + '>' +
+                '<option value="">選択</option>' +
+              '</select>' +
+            '</div>' +
+          '</div>';
+        container.appendChild(card);
+      }
+    }
+
+    // ===========================================
+    // ランク選択肢の更新（既存値保持）
+    // ===========================================
+    function updateRankOptions() {
+      var teamRank = document.getElementById('team_rank').value;
+
+      for (var i = 1; i <= 6; i++) {
+        var genderSelect = document.getElementById('player' + i + '_gender');
+        var rankSelect = document.getElementById('player' + i + '_rank');
+        
+        if (!genderSelect || !rankSelect) continue;
+
+        var gender = genderSelect.value;
+        var currentRank = rankSelect.value; // 現在の値を保存
+        
+        rankSelect.innerHTML = '<option value="">選択</option>';
+
+        if (!gender || !teamRank) continue;
+
+        var ranks = [];
+        if (gender === '男性') {
+          if (teamRank === 'A') ranks = ['A', 'B', 'C'];
+          else if (teamRank === 'B') ranks = ['B', 'C', 'D'];
+          else if (teamRank === 'C') ranks = ['C', 'D'];
+          else if (teamRank === 'D') ranks = ['D'];
+        } else if (gender === '女性') {
+          if (teamRank === 'A') ranks = ['A', 'B', 'C', 'D'];
+          else if (teamRank === 'B') ranks = ['B', 'C', 'D'];
+          else if (teamRank === 'C') ranks = ['B', 'C', 'D']; // Cクラスの女子はB以下
+          else if (teamRank === 'D') ranks = ['D'];
+        }
+
+        for (var j = 0; j < ranks.length; j++) {
+          var option = document.createElement('option');
+          option.value = ranks[j];
+          option.textContent = ranks[j];
+          rankSelect.appendChild(option);
+        }
+        
+        // 以前の値が選択肢に含まれていれば復元
+        if (currentRank && ranks.indexOf(currentRank) !== -1) {
+          rankSelect.value = currentRank;
+        }
+      }
+    }
+
+    // ===========================================
+    // チーム編成条件のバリデーション
+    // ===========================================
+    function validateTeamComposition(data) {
+      var teamRank = data.team_rank;
+      var femaleCount = 0;
+      var maleCount = 0;
+      var maleBRankCount = 0;
+      var maleCRankCount = 0;
+      var maleDRankCount = 0;
+      var femaleBOrLowerCount = 0;
+
+      for (var i = 1; i <= 6; i++) {
+        var name = data['player' + i + '_name'];
+        var gender = data['player' + i + '_gender'];
+        var rank = data['player' + i + '_rank'];
+        
+        if (!name) continue;
+        
+        if (gender === '女性') {
+          femaleCount++;
+          if (rank === 'B' || rank === 'C' || rank === 'D') {
+            femaleBOrLowerCount++;
+          }
+        } else if (gender === '男性') {
+          maleCount++;
+          if (rank === 'B') maleBRankCount++;
+          if (rank === 'C') maleCRankCount++;
+          if (rank === 'D') maleDRankCount++;
+        }
+      }
+
+      // Aクラス: （女子 + Bランク男子）の合計が2名以上
+      if (teamRank === 'A') {
+        var totalCount = femaleCount + maleBRankCount;
+        if (totalCount >= 2) {
+          return { valid: true };
+        } else {
+          var msg = '⚠️ Aクラスの条件不足\n';
+          msg += '■ 必要: （女子 + Bランク男子）の合計を2名以上\n';
+          msg += '■ 現在: 女子' + femaleCount + '名 + Bランク男子' + maleBRankCount + '名 = 合計' + totalCount + '名';
+          return { valid: false, message: msg };
+        }
+      }
+      
+      // Bクラス: （女子 + Cランク男子）の合計が2名以上
+      if (teamRank === 'B') {
+        var totalCount = femaleCount + maleCRankCount;
+        if (totalCount >= 2) {
+          return { valid: true };
+        } else {
+          var msg = '⚠️ Bクラスの条件不足\n';
+          msg += '■ 必要: （女子 + Cランク男子）の合計を2名以上\n';
+          msg += '■ 現在: 女子' + femaleCount + '名 + Cランク男子' + maleCRankCount + '名 = 合計' + totalCount + '名';
+          return { valid: false, message: msg };
+        }
+      }
+      
+      // Cクラス: （女子Bランク以下 + Dランク男子）の合計が2名以上
+      if (teamRank === 'C') {
+        var totalCount = femaleBOrLowerCount + maleDRankCount;
+        if (totalCount >= 2) {
+          return { valid: true };
+        } else {
+          var msg = '⚠️ Cクラスの条件不足\n';
+          msg += '■ 必要: （女子Bランク以下 + Dランク男子）の合計を2名以上\n';
+          msg += '■ 現在: 女子B以下' + femaleBOrLowerCount + '名 + Dランク男子' + maleDRankCount + '名 = 合計' + totalCount + '名';
+          return { valid: false, message: msg };
+        }
+      }
+      
+      // Dクラス: 男女の制限なし
+      if (teamRank === 'D') {
+        return { valid: true };
+      }
+
+      return { valid: true };
+    }
+
+    // ===========================================
+    // フォーム送信処理
+    // ===========================================
+    document.getElementById('entryForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      var formData = new FormData(this);
+      var data = { action: 'add' };
+
+      // フォームデータを取得
+      for (var pair of formData.entries()) {
+        data[pair[0]] = pair[1] || '';
+      }
+
+      // 選手数カウント
+      var playerCount = 0;
+      for (var i = 1; i <= 6; i++) {
+        if (data['player' + i + '_name']) playerCount++;
+      }
+
+      // バリデーション
+      if (playerCount < 4) {
+        showMessage('formMessage', '⚠️ 選手は4名以上登録してください（現在: ' + playerCount + '名）', 'error');
+        return;
+      }
+
+      // チーム編成条件チェック
+      var validationResult = validateTeamComposition(data);
+      if (!validationResult.valid) {
+        showMessage('formMessage', validationResult.message, 'error');
+        return;
+      }
+
+      // ローディング表示
+      showLoading('formLoading', true);
+      hideMessage('formMessage');
+      document.getElementById('submitBtn').disabled = true;
+
+      // GASへ送信
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify(data)
+      })
+      .then(function(response) { return response.json(); })
+      .then(function(result) {
+        if (result.success) {
+          showMessage('formMessage', '登録が完了しました!(ID: ' + result.id + ')', 'success');
+          document.getElementById('entryForm').reset();
+          initPlayerCards();
+          
+          // 2秒後に登録状況ページに自動切り替え
+          setTimeout(function() {
+            switchTab('status');
+            // タブボタンのアクティブ状態を更新
+            document.querySelectorAll('.tab-button').forEach(function(btn) {
+              btn.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button')[1].classList.add('active');
+          }, 2000);
+        } else {
+          showMessage('formMessage', '登録に失敗しました: ' + (result.error || '不明なエラー'), 'error');
+        }
+      })
+      .catch(function(error) {
+        showMessage('formMessage', 'エラーが発生しました: ' + error.message, 'error');
+        console.error('送信エラー:', error);
+      })
+      .finally(function() {
+        showLoading('formLoading', false);
+        document.getElementById('submitBtn').disabled = false;
+      });
+    });
+
+    // ===========================================
+    // 登録状況の読込
+    // ===========================================
+    function loadEntries() {
+      showLoading('statusLoading', true);
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'get', limit: 1000, offset: 0 })
+      })
+      .then(function(response) { return response.json(); })
+      .then(function(result) {
+        if (!result.items) {
+          showStats({ teams: 0, players: 0, male: 0, female: 0, ranks: {} });
+          return;
+        }
+
+        // 統計計算
+        var stats = {
+          teams: result.items.length,
+          players: 0,
+          male: 0,
+          female: 0,
+          ranks: { A: 0, B: 0, C: 0, D: 0 }
+        };
+
+        for (var i = 0; i < result.items.length; i++) {
+          var item = result.items[i];
+          
+          // チームランクをカウント
+          var teamRank = item['team_rank'];
+          if (teamRank && stats.ranks[teamRank] !== undefined) {
+            stats.ranks[teamRank]++;
+          }
+          
+          for (var j = 1; j <= 6; j++) {
+            var name = item['player' + j + '_name'];
+            var gender = item['player' + j + '_gender'];
+
+            if (name) {
+              stats.players++;
+              if (gender === '男性') stats.male++;
+              if (gender === '女性') stats.female++;
+            }
+          }
+        }
+
+        showStats(stats);
+      })
+      .catch(function(error) {
+        console.error('データ取得エラー:', error);
+        showStats({ teams: 0, players: 0, male: 0, female: 0, ranks: {} });
+      })
+      .finally(function() {
+        showLoading('statusLoading', false);
+      });
+    }
+
+    // ===========================================
+    // 統計表示
+    // ===========================================
+    function showStats(stats) {
+      var container = document.getElementById('statsContainer');
+      container.innerHTML = 
+        '<div class="stat-box"><h3>登録チーム数</h3><p>' + stats.teams + '</p></div>' +
+        '<div class="stat-box"><h3>総選手数</h3><p>' + stats.players + '</p></div>' +
+        '<div class="stat-box"><h3>男性</h3><p>' + stats.male + '</p></div>' +
+        '<div class="stat-box"><h3>女性</h3><p>' + stats.female + '</p></div>' +
+        '<div class="stat-box"><h3>Aクラス</h3><p>' + (stats.ranks.A || 0) + 'チーム</p></div>' +
+        '<div class="stat-box"><h3>Bクラス</h3><p>' + (stats.ranks.B || 0) + 'チーム</p></div>' +
+        '<div class="stat-box"><h3>Cクラス</h3><p>' + (stats.ranks.C || 0) + 'チーム</p></div>' +
+        '<div class="stat-box"><h3>Dクラス</h3><p>' + (stats.ranks.D || 0) + 'チーム</p></div>';
+    }
+
+    // ===========================================
+    // 管理者ログイン
+    // ===========================================
+    function adminLogin() {
+      var password = document.getElementById('adminPassword').value;
+      if (password === ADMIN_PASSWORD) {
+        document.getElementById('adminLoginArea').style.display = 'none';
+        document.getElementById('adminContent').style.display = 'block';
+        enableTitleEdit(); // 管理者ログイン時にタイトル編集を有効化
+        adminLoadAll();
+      } else {
+        alert('パスワードが正しくありません');
+      }
+    }
+
+    // ===========================================
+    // 管理者用：全データ読込
+    // ===========================================
+    function adminLoadAll() {
+      showLoading('adminLoading', true);
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'getAll' })
+      })
+      .then(function(response) { return response.json(); })
+      .then(function(result) {
+        if (!result.items) {
+          document.getElementById('adminTableBody').innerHTML = '<tr><td colspan="9">データがありません</td></tr>';
+          return;
+        }
+
+        var tbody = document.getElementById('adminTableBody');
+        tbody.innerHTML = '';
+
+        for (var i = 0; i < result.items.length; i++) {
+          var item = result.items[i];
+          var isDeleted = item.delete_flag === '1' || item.delete_flag === 1;
+          
+          // 選手数カウント
+          var playerCount = 0;
+          for (var j = 1; j <= 6; j++) {
+            if (item['player' + j + '_name']) playerCount++;
+          }
+
+          var row = document.createElement('tr');
+          if (isDeleted) row.classList.add('deleted-row');
+
+          row.innerHTML = 
+            '<td>' + (item.id || '-') + '</td>' +
+            '<td>' + (item.team_name || '-') + '</td>' +
+            '<td>' + (item.applicant_name || '-') + '</td>' +
+            '<td>' + (item.applicant_email || '-') + '</td>' +
+            '<td>' + (item.applicant_phone || '-') + '</td>' +
+            '<td>' + (item.team_rank || '-') + '</td>' +
+            '<td>' + playerCount + '</td>' +
+            '<td>' + (isDeleted ? '削除済み' : '有効') + '</td>' +
+            '<td>' + 
+              (!isDeleted ? 
+                '<button class="btn-danger" onclick="deleteEntry(\'' + item.id + '\')">削除</button>' : 
+                '<button class="btn-warning" onclick="restoreEntry(\'' + item.id + '\')">復元</button> ' +
+                '<button class="btn-danger" onclick="permanentDelete(\'' + item.id + '\')">完全削除</button>'
+              ) +
+            '</td>';
+          tbody.appendChild(row);
+        }
+      })
+      .catch(function(error) {
+        console.error('管理データ取得エラー:', error);
+        alert('データの取得に失敗しました: ' + error.message);
+      })
+      .finally(function() {
+        showLoading('adminLoading', false);
+      });
+    }
+
+    // ===========================================
+    // 削除・復元・完全削除
+    // ===========================================
+    function deleteEntry(id) {
+      if (!confirm('ID: ' + id + ' を削除しますか?(復元可能)')) return;
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'delete', id: id })
+      })
+      .then(function(response) { return response.json(); })
+      .then(function(result) {
+        if (result.success) {
+          alert('削除しました');
+          adminLoadAll();
+        } else {
+          alert('削除に失敗: ' + (result.error || '不明'));
+        }
+      })
+      .catch(function(error) {
+        alert('エラー: ' + error.message);
+      });
+    }
+
+    function restoreEntry(id) {
+      if (!confirm('ID: ' + id + ' を復元しますか?')) return;
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'restore', id: id })
+      })
+      .then(function(response) { return response.json(); })
+      .then(function(result) {
+        if (result.success) {
+          alert('復元しました');
+          adminLoadAll();
+        } else {
+          alert('復元に失敗: ' + (result.error || '不明'));
+        }
+      })
+      .catch(function(error) {
+        alert('エラー: ' + error.message);
+      });
+    }
+
+    function permanentDelete(id) {
+      if (!confirm('ID: ' + id + ' を完全削除しますか?この操作は取り消せません!')) return;
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'permanentDelete', id: id })
+      })
+      .then(function(response) { return response.json(); })
+      .then(function(result) {
+        if (result.success) {
+          alert('完全削除しました');
+          adminLoadAll();
+        } else {
+          alert('完全削除に失敗: ' + (result.error || '不明'));
+        }
+      })
+      .catch(function(error) {
+        alert('エラー: ' + error.message);
+      });
+    }
+
+    // ===========================================
+    // ヘルパー関数
+    // ===========================================
+    function showMessage(elementId, message, type) {
+      var msgDiv = document.getElementById(elementId);
+      msgDiv.className = 'message ' + type;
+      msgDiv.textContent = message;
+      msgDiv.style.display = 'block';
+
+      setTimeout(function() {
+        msgDiv.style.display = 'none';
+      }, 5000);
+    }
+
+    function hideMessage(elementId) {
+      var msgDiv = document.getElementById(elementId);
+      msgDiv.style.display = 'none';
+    }
+
+    function showLoading(elementId, show) {
+      var loadingDiv = document.getElementById(elementId);
+      if (show) {
+        loadingDiv.classList.add('active');
+      } else {
+        loadingDiv.classList.remove('active');
+      }
+    }
+
+    // ===========================================
+    // タイトル変更機能（管理者のみ）
+    // ===========================================
+    function enableTitleEdit() {
+      var mainTitle = document.getElementById('mainTitle');
+      var pageTitle = document.getElementById('pageTitle');
+      
+      mainTitle.contentEditable = 'true';
+      mainTitle.style.cursor = 'text';
+      mainTitle.style.border = '2px dashed #66bb6a';
+      mainTitle.style.padding = '8px';
+      
+      mainTitle.addEventListener('blur', function() {
+        var newTitle = this.textContent.trim();
+        if (newTitle) {
+          pageTitle.textContent = newTitle;
+          localStorage.setItem('customTitle', newTitle);
+        }
+      });
+      
+      mainTitle.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          this.blur();
+        }
+      });
+    }
+    
+    function setupTitleEdit() {
+      // 保存されたタイトルを読み込み
+      var mainTitle = document.getElementById('mainTitle');
+      var pageTitle = document.getElementById('pageTitle');
+      var savedTitle = localStorage.getItem('customTitle');
+      if (savedTitle) {
+        mainTitle.textContent = savedTitle;
+        pageTitle.textContent = savedTitle;
+      }
+    }
+
+    // ===========================================
+    // 自動更新の設定
+    // ===========================================
+    var autoUpdateInterval = null;
+    
+    function startAutoUpdate() {
+      // 既存のインターバルをクリア
+      if (autoUpdateInterval) {
+        clearInterval(autoUpdateInterval);
+      }
+      
+      // 30秒ごとに自動更新
+      autoUpdateInterval = setInterval(function() {
+        // 登録状況タブがアクティブな場合のみ更新
+        if (document.getElementById('status').classList.contains('active')) {
+          loadEntries();
+        }
+      }, 30000); // 30秒 = 30000ミリ秒
+    }
+    
+    function stopAutoUpdate() {
+      if (autoUpdateInterval) {
+        clearInterval(autoUpdateInterval);
+        autoUpdateInterval = null;
+      }
+    }
+
+    // ===========================================
+    // 初期化
+    // ===========================================
+    window.addEventListener('DOMContentLoaded', function() {
+      initPlayerCards();
+      updateRankOptions();
+      setupTitleEdit();
+      startAutoUpdate(); // 自動更新を開始
+    });
+  </script>
+
+</body>
+</html>
